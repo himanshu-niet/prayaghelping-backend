@@ -52,7 +52,7 @@ const {
         const store = {name,email,phone,dob,gender,state,district,address,position:"Member",date,vId,idCardUrl,photoUrl};
          addVolunteerRef(store).then((data) => {
             
-           return res.status(data.code).json({message:data.message});   
+           res.status(data.code).json({ message: data.message });   
          });
     } catch (error) {
         res.status(400).json({"message":error.message})   
