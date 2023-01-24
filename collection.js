@@ -14,16 +14,18 @@ const { StatusCodes } = require("http-status-codes/build/cjs/status-codes");
 
 const addVolunteerRef = async(data) => { 
     try {
+      
+      
       const check = await firestore.collection("volunteer").doc(data.email).get();
       
       if (check.exists){
         return { message: "Email Already Registered", code: StatusCodes.NOT_ACCEPTABLE };
       }
 
-        await firestore.collection("volunteer").doc(data.email).set(data);
-        VolunteerPDF(data.vId,data.name,data.dob,data.mob,data.position,data.address);
-        
-        return { message: "Record saved successfuly", code: StatusCodes.OK };
+       await firestore.collection("volunteer").doc(data.email).set(data);
+        //VolunteerPDF(data.vId,data.name,data.dob,data.mob,data.position,data.address);
+
+        return { message: "Record saved successfully", code: StatusCodes.OK };
 
 
     } catch (error) {

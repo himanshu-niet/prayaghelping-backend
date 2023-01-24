@@ -30,6 +30,7 @@ const {
     const idCardUrl = await uploadPhoto(idCard);
     const photoUrl = await uploadPhoto(photo);
 
+    
     if (
       (!name,
       !email,
@@ -50,8 +51,8 @@ const {
 
         const store = {name,email,phone,dob,gender,state,district,address,position:"Member",date,vId,idCardUrl,photoUrl};
          addVolunteerRef(store).then((data) => {
-           
-            res.status(data.code).json({message:data.message});   
+            
+           return res.status(data.code).json({message:data.message});   
          });
     } catch (error) {
         res.status(400).json({"message":error.message})   
