@@ -1,19 +1,14 @@
 const {
   addVolunteerRef,
-  getVolunteerRef,
   addContactRef,
   getDate,
-  uploadPhoto,
-} = require("../collection.js");
-
+  getBlogsRef,
+} = require("../collections/userCollection");
 
 
 
  const addVolunteer=async(req,res)=>{
-  
-
-
-    try {
+      try {
       
     const {
       name,
@@ -27,8 +22,9 @@ const {
       idCard,
       photo,
     } = req.body;
-    const idCardUrl = await uploadPhoto(idCard);
-    const photoUrl = await uploadPhoto(photo);
+
+    const idCardUrl =idCard;
+    const photoUrl =photo;
 
     
     if (
@@ -51,12 +47,13 @@ const {
 
         const store = {name,email,phone,dob,gender,state,district,address,position:"Member",date,vId,idCardUrl,photoUrl};
          addVolunteerRef(store).then((data) => {
-            
-           res.status(data.code).json({ message: data.message });   
+         
+          return res.status(data.code).json({ message: data.message });   
          });
     } catch (error) {
         res.status(400).json({"message":error.message})   
     }  
+ 
 }
 
  const addContact = async (req, res) => {
@@ -86,24 +83,16 @@ const {
    }
  };
 
-
-
-const getAllVolunteer = (req, res) => {
+const getAllBlogs = async (req, res) => {
   try {
-    getVolunteerRef().then((data) => {
-     
-      res.status(data.code).json(data.data);
-    });
+    const data = await getBlogsRef();
+    
+    res.status(data.code).json({ message: data.data });
   } catch (error) {
-    res.status(400).json({ message: error });
+    res.status(401).json({ message: "Technical Error" });
   }
 };
 
 
 
-
-
-
-
-
-module.exports = { addVolunteer, getAllVolunteer, addContact };
+module.exports = { addVolunteer, getAllBlogs, addContact };

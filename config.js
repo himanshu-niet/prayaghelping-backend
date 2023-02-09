@@ -1,14 +1,12 @@
 "use strict";
 const dotenv = require("dotenv");
-
 dotenv.config();
 
-const { PORT, firebaseConfig, STORAGE_URL } = process.env;
+const { PORT,  MONGO_URL } = process.env;
 
 
 
 module.exports = {
+  db_url:MONGO_URL,
   port: PORT,
-  firebaseConfig: firebaseConfig,
-  STORAGE_URL:STORAGE_URL
 };

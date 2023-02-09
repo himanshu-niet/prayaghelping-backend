@@ -1,11 +1,8 @@
 const express = require("express");
 const router = express.Router();
-const { upload } = require("../firebaseDB/FileUpload");
+const { upload}=require("../middlewares/FileUpload")
 
-const {
-  addVolunteer,
-  addContact,
-} = require("../controller/user");
+const { addVolunteer, addContact, getAllBlogs } = require("../controller/user");
 
 router.post(
   "/volunteer",
@@ -17,4 +14,7 @@ router.post(
 );
 
 router.post("/contact", addContact);
+
+router.get("/blogs", getAllBlogs);
+
 module.exports = router;
